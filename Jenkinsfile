@@ -171,6 +171,21 @@ pipeline {
                         //charsetStr: "UTF-8",
                         //charset: "UTF-8",
                         mimeType: 'text/html'
+
+            script {
+                def ubicacion = "/var/jenkins_home/workspace/CopiasSeguridad"
+                echo "${WORKSPACE}"
+                echo "Copia_${JOB_NAME}"
+                def carpetaExiste = sh(script: "test -d ${ubicacion}/Copia_${JOB_NAME} && echo 'true' || echo 'false'", returnStdout: true).trim()
+                if (carpetaExiste == 'false') {
+                    dir("${ubicacion}"){
+                         sh 'mkdir -p Copia_${JOB_NAME}'
+                    }
+                   
+                }
+                sh "cp -f ${WORKSPACE}/Jenkinsfile ${ubicacion}/Copia_${JOB_NAME}/"
+            }
         }
+        
     }
 }
