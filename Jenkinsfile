@@ -161,15 +161,10 @@ pipeline {
                                         </body>
                                 </html>
                                 """,
-                        // to: "jonatanbecerra7@gmail.com",
-                        // to: "julianamunoz@seti.com.co",
                         to: "marianalaverde29@gmail.com",
-                        // to: "jonatangutierrez@seti.com.co",
                         //from: "mariaeugenianieto345@gmail.com",
                         from: "jonatangutierrez@seti.com.co",
                         replyTo: "jonatangutierrez@seti.com.co",
-                        //charsetStr: "UTF-8",
-                        //charset: "UTF-8",
                         mimeType: 'text/html'
 
             script {
