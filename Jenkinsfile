@@ -161,7 +161,7 @@ pipeline {
                                         </body>
                                 </html>
                                 """,
-                        to: "marianalaverde29@gmail.com",
+                        to: "jonatangutierrez@seti.com.co",
                         //from: "mariaeugenianieto345@gmail.com",
                         from: "jonatangutierrez@seti.com.co",
                         replyTo: "jonatangutierrez@seti.com.co",
