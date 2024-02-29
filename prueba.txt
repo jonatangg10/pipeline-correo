@@ -4,9 +4,6 @@ pipeline {
         LANG = 'es_CO.UTF-8'
         repoLink = 'https://github.com/jonatangg10/pipeline-correo.git'
     }
-    // triggers {
-        // cron('H/2 * * * *')
-    // }
     stages {
         stage('Configuración') {
             steps {
@@ -15,41 +12,12 @@ pipeline {
                 }
             }
         }
-        stage('Build') { 
-            steps {
-                script {
-                    echo "Notificación de Jenkins: ${currentBuild.getFullDisplayName()}"
-                    // echo "Estado de Jenkins: ${currentBuild.result}"
-                }
-                sh 'echo "Construyendo la Aplicación"' 
-                sh '''
-                    echo "Pasos multiples de shell tambien funcionan"
-                    pwd
-                '''
-            }
-        }
-        stage('Test') { 
-            steps {
-                echo 'Arranca el proceso de pruebas unitarias' 
-            }
-        }
-        stage('Deploy') { 
-            steps {
-                retry(3) {
-                    sh 'echo "Desplegando al área de desarrollo"'
-                }
-
-                timeout(time: 10, unit: 'SECONDS') {
-                    sh 'sleep 9'
-                    echo 'Prueba de el retry y el timeout'
-                    // 9+ error
-                }
-            }
-        }
     }
     post {
         always {
-            emailext subject: "Jenkins: ${currentBuild.getFullDisplayName()}",          
+            script {
+                def destinatario = params.Notificar == 'Equipo 1' ? 'marianalaverde29@gmail.com, jonatangutierrez@seti.com.co' : 'jonatangutierrez@seti.com.co'
+                emailext subject: "Jenkins: ${currentBuild.getFullDisplayName()}",          
                         body : """
                                 <!DOCTYPE html>
                                     <html lang="en">
@@ -169,14 +137,14 @@ pipeline {
                                 </html>
                                 """,
                         
-                        to: "marianalaverde29@gmail.com",
+                        to: destinatario,
                         //from: "mariaeugenianieto345@gmail.com",
                         from: "jonatangutierrez@seti.com.co",
                         replyTo: "jonatangutierrez@seti.com.co",
                         mimeType: 'text/html'
+                
+            }
+            
         }
-        
     }
 }
-
-${params.Notificar}
